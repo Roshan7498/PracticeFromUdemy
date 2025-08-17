@@ -1,27 +1,27 @@
 package com.projects.demo.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class JobPost {
 @Id
     private int postId;
     private String postProfile;
     private String postDesc;
     private Integer reqExperience;
+
+    @ElementCollection // List<String> needs this for JPA
     private List<String> postTechStack;
+
+    @OneToOne(cascade = CascadeType.ALL) // will save JobRating along with JobPost
     private JobRating jobRating;
-
-
-
 
 }

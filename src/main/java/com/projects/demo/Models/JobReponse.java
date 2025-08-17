@@ -8,7 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
+//@AllArgsConstructor
+
 public class JobReponse {
 
         private int count;
