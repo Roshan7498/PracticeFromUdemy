@@ -1,7 +1,6 @@
-package com.projects.demo.Controller;
+package com.projects.demo.controller;
 
 import com.projects.demo.Models.JobPost;
-import com.projects.demo.Models.JobReponse;
 import com.projects.demo.Services.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+
+@RequestMapping("/api")
 public class JobRestController {
 
     @Autowired
