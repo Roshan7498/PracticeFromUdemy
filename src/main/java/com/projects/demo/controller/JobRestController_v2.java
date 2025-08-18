@@ -1,7 +1,7 @@
 package com.projects.demo.controller;
 
-import com.projects.demo.Models.JobPost;
-import com.projects.demo.Services.JobService;
+import com.projects.demo.models.JobPost;
+import com.projects.demo.services.JobService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,15 +15,15 @@ import java.util.Optional;
 
 @RestController
 
-@RequestMapping("/api")
+@RequestMapping("/api/v2")
 @Tag(name = "Job Management", description = "APIs for managing job posts")
-public class JobRestController {
+public class JobRestController_v2 {
 
     @Autowired
     private JobService jobservice;
 
     // To fetch list of Jobs
-    @GetMapping("jobPosts")
+    @GetMapping("/jobPosts")
     @Operation(summary = "Fetch all jobs", description = "Returns a list of all job posts available in the system")
     public List<JobPost> getAllJobs() {
         return jobservice.getAllJobs();

@@ -1,9 +1,8 @@
-package com.projects.demo.Services;
+package com.projects.demo.services;
 
-import com.projects.demo.Models.JobPost;
-import com.projects.demo.Models.JobRating;
-import com.projects.demo.Models.JobReponse;
-import com.projects.demo.Repositories.JobRepo;
+import com.projects.demo.models.JobPost;
+import com.projects.demo.models.JobRating;
+import com.projects.demo.repositories.JobRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
