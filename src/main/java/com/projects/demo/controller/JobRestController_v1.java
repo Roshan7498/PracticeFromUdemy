@@ -6,11 +6,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.web.csrf.CsrfToken;
 
 import java.util.List;
 import java.util.Optional;
@@ -67,7 +70,6 @@ public class JobRestController_v1 {
     }
 
 
-
     //  Deletes a job
     @DeleteMapping("/jobPosts/{PostID}")
     public String deleteAjob(@PathVariable int PostID) {
@@ -85,4 +87,11 @@ public class JobRestController_v1 {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());
         }
     }
+
+    @GetMapping("/csrf-token")
+    public CsrfToken getCsrfToken(HttpServletRequest request){
+
+        return (CsrfToken)request.getAttribute("_csrf");
+    }
+
 }
