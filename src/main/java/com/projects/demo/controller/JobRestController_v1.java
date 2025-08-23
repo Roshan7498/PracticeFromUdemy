@@ -88,10 +88,10 @@ public class JobRestController_v1 {
         }
     }
 
-    @GetMapping("/csrf-token")
-    public CsrfToken getCsrfToken(HttpServletRequest request){
-
-        return (CsrfToken)request.getAttribute("_csrf");
-    }
+//    @GetMapping("/csrf-token")
+//    public CsrfToken getCsrfToken(HttpServletRequest request){
+//
+//        return (CsrfToken)request.getAttribute("_csrf");
+//    }
 
 }
