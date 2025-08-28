@@ -1,5 +1,6 @@
 package com.projects.demo.services;
 
+//import com.projects.demo.models.UserDetailsImpl;
 import com.projects.demo.models.UserDetailsImpl;
 import com.projects.demo.models.Users;
 import com.projects.demo.repositories.UserRepo;
@@ -25,4 +26,6 @@ public class MyUserDetailsService implements UserDetailsService {
        }
         return new UserDetailsImpl(user);
     }
+
+
 }
