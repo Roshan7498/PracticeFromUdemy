@@ -33,20 +33,26 @@ public class JWTService {
 //    public void init() {
 //        this.secretKey = generateSecretKey();
 //    }
-
-    public String generateToken(String username) {
-
-        Map<String,Object> claims = new HashMap<>();
-        return
-                Jwts.builder()
-                        .setClaims(claims)
-                        .setSubject(username)
-                        .setIssuedAt(new Date(System.currentTimeMillis()))
-                        .setExpiration(new Date(System.currentTimeMillis()+1000*60*3))
-                        .signWith(getKey(), SignatureAlgorithm.HS256).compact();
-
+    // Generate token from UserDetails (old login)
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails.getUsername());
     }
 
+    // Generate token directly from email/username (for OAuth2 login)
+    public String generateToken(String username) {
+        return generateToken(new HashMap<>(), username);
+    }
+
+    // The actual private method used by both
+    private String generateToken(Map<String, Object> extraClaims, String subject) {
+        return Jwts.builder()
+                .setClaims(extraClaims)
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
 
 
 
