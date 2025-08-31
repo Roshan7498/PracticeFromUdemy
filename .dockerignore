@@ -1,0 +1,16 @@
+# Ignore Maven target except the final JAR
+target/*
+!target/*.jar
+
+# Ignore IDE settings
+.idea/
+*.iml
+.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore Git files
+.git
+.gitignore

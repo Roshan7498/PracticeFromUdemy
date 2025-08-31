@@ -1,4 +1,37 @@
+
+Steps for docker
+1. </dependencies>
+
+    <build>
+        <finalName>apnaapp
+        </finalName>
+ <plugins>
+
+
+in dockerFile of IntelliJ
+# Use Eclipse Temurin JDK 22 Alpine base
+FROM eclipse-temurin:22-jdk-alpine
+
+# Install netcat for connectivity testing
+RUN apk update && apk add --no-cache netcat-openbsd
+
+WORKDIR /meraApp
+COPY target/apnaapp.jar tanishi.jar    best thing is to put both names same like either apnaapp or tanishi
+
+# Force Spring Boot to use docker profile
+ENV SPRING_PROFILES_ACTIVE=docker
+
+EXPOSE 9090
+
+ENTRYPOINT ["java","-jar","tanishi.jar"]
+
+
+2.  ---> .\mvnw clean package -DskipTests
+3.  ---> check if it exists    target/apnaapp.jar
+4.  ---> build the project     docker build -t tanishi:version.number here like 1.0.0 .
+5.  --->Run the container      docker run --name apnaapp -p 9091:9090 tanishi:1.0.0
 # PracticeFromUdemy
+
 JPA and Hibernate difference 
 Answered by ChatGPT
 
