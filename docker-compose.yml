@@ -1,0 +1,75 @@
+
+
+services:
+  discovery-server:
+    build:
+      context: ./discovery-server
+      dockerfile: Dockerfile
+    image: discovery-server:2.0
+    container_name: discovery-server
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    networks:
+      - backend
+
+  movie-catalog-service:
+    build:
+      context: ./movie-catalog-service
+      dockerfile: Dockerfile
+    image: movie-catalog-service:2.0
+    container_name: movie-catalog-service
+    depends_on:
+      - discovery-server
+    ports:
+      - "9090:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 8
+    networks:
+      - backend
+
+  movie-info-service:
+    build:
+      context: ./movie-info-service
+      dockerfile: Dockerfile
+    image: movie-info-service:2.0
+    container_name: movie-info-service
+    depends_on:
+      - discovery-server
+    ports:
+      - "9091:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - backend
+
+  ratings-data-service:
+    build:
+      context: ./ratings-data-service
+      dockerfile: Dockerfile
+    image: ratings-data-service:2.0
+    container_name: ratings-data-service
+    depends_on:
+      - discovery-server
+    ports:
+      - "9092:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

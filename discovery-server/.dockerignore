@@ -1,0 +1,5 @@
+# 1. confirm JAR exists
+dir .\target\*.jar
+
+# 2. confirm Dockerfile exists
+dir .\Dockerfile
